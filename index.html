@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hazrat Fatima Zahra as Life Quiz</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Arial,sans-serif;
+  /* ✅ More visible background (LESS transparency) */
+  background-image:
+    linear-gradient(
+      135deg,
+      rgba(99,102,241,0.40),
+      rgba(236,72,153,0.35)
+    ),
+    url('Background.png');
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  background-repeat:no-repeat;
+  min-height:100vh;
+  padding:20px;
+  padding-bottom:80px; /* space for footer */
+}
+
+#a{
+  max-width:900px;
+  margin:0 auto;
+  background:rgba(255,255,255,0.96);
+  border-radius:24px;
+  box-shadow:0 24px 70px rgba(15,23,42,0.35);
+  padding:22px 28px 28px; /* ✅ reduced top padding */
+  border-top:6px solid #6366f1;
+  backdrop-filter:blur(12px);
+}
+
+.h{text-align:center;margin-bottom:26px;}
+
+.logo{
+  width:100%;
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  margin-bottom:6px; /* ✅ less space */
+}
+
+.logo-img{
+  height:58px; /* ✅ smaller */
+  width:auto;
+  margin-left:5px;
+  display:block;
+  border-radius:16px;
+  box-shadow:0 8px 18px rgba(148,163,184,0.7);
+  background:#fff;
+}
+@media (max-width:600px){
+  .logo-img{ height:46px; } /* ✅ smaller on mobile */
+}
+
+.h h1{
+  color:#111827;
+  font-size:30px;
+  margin-top:4px;
+}
+
+.h .designer{
+  font-size:14px;
+  color:#6b7280;
+  font-style:italic;
+  margin-top:4px;
+}
+
+.ci{
+  font-size:14px;
+  color:#4b5563;
+  margin-top:4px;
+}
+
+/* Language switcher */
+.langbar{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+.langbar label{
+  font-size:13px;
+  color:#4b5563;
+  font-weight:700;
+}
+.langbar select{
+  padding:8px 10px;
+  border:1px solid #d1d5db;
+  border-radius:12px;
+  font-size:13px;
+  background:#fff;
+  cursor:pointer;
+}
+.langhint{
+  font-size:12px;
+  color:#6b7280;
+}
+
+/* QUESTION AREA */
+.pi{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:12px;
+  flex-wrap:wrap;
+  gap:8px;
+  font-size:14px;
+  color:#4b5563;
+}
+.pi-left{display:flex;flex-direction:column;gap:4px;}
+.pi-right{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;}
+
+.qt{
+  background:#e0e7ff;
+  color:#4338ca;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+}
+.qt.flagged{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.pb{
+  width:100%;
+  height:8px;
+  background:#e5e7eb;
+  border-radius:999px;
+  margin-bottom:24px;
+  overflow:hidden;
+}
+.pf{
+  height:100%;
+  background:linear-gradient(90deg,#6366f1,#ec4899);
+  transition:width .3s;
+}
+.q{
+  font-size:26px;
+  font-weight:700;
+  color:#111827;
+  margin-bottom:18px;
+}
+
+.os{margin-bottom:18px;}
+
+.o{
+  background:#f9fafb;
+  border:2px solid #e5e7eb;
+  border-radius:14px;
+  padding:14px 16px;
+  margin-bottom:10px;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  transition:all .18s ease;
+}
+.o:hover:not(.l){
+  border-color:#a855f7;
+  box-shadow:0 4px 10px rgba(148,163,184,0.45);
+}
+.o:active:not(.l){
+  border-color:#3b82f6;
+  background:#eff6ff;
+}
+.o span:first-child{
+  color:#111827;
+  font-size:20px;
+}
+.o.s{
+  background:#e0f2fe;
+  border-color:#3b82f6;
+}
+.o.co{
+  background:#dcfce7;
+  border-color:#16a34a;
+}
+.o.w{
+  background:#fee2e2;
+  border-color:#ef4444;
+}
+.o.l{
+  cursor:not-allowed;
+}
+
+/* FEEDBACK */
+.fb{
+  padding:14px 16px;
+  border-radius:14px;
+  margin-bottom:12px;
+  font-weight:600;
+  font-size:15px;
+}
+.fb.co{
+  background:#dcfce7;
+  border:2px solid #16a34a;
+  color:#065f46;
+}
+.fb.ic{
+  background:#fee2e2;
+  border:2px solid #ef4444;
+  color:#991b1b;
+}
+
+/* BUTTONS */
+button{
+  width:100%;
+  padding:13px 16px;
+  border:none;
+  border-radius:999px;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  position:relative;
+  z-index:5; /* clickable */
+}
+button:disabled{
+  background:#d1d5db;
+  color:#9ca3af;
+  cursor:not-allowed;
+  box-shadow:none;
+  transform:none;
+}
+button:not(:disabled):hover{
+  box-shadow:0 8px 16px rgba(148,163,184,0.7);
+  transform:translateY(-1px);
+}
+button:not(:disabled):active{
+  transform:translateY(0);
+  box-shadow:0 4px 10px rgba(148,163,184,0.6);
+}
+
+.sb{
+  background:linear-gradient(135deg,#6366f1,#ec4899);
+  color:#fff;
+}
+.nb{
+  background:linear-gradient(135deg,#22c55e,#14b8a6);
+  color:#fff;
+}
+.skb{
+  background:linear-gradient(135deg,#f97316,#facc15);
+  color:#fff;
+  margin-top:10px;
+}
+.fgb{
+  background:linear-gradient(135deg,#ef4444,#f97316);
+  color:#fff;
+  margin-top:10px;
+}
+
+/* ✅ WhatsApp button */
+.wa-btn{
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  color:#fff;
+}
+
+.btn-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+
+/* RESULTS */
+.r{text-align:center;}
+.sc{
+  font-size:64px;
+  font-weight:800;
+  margin:26px 0 10px;
+}
+.sc.e{color:#16a34a;}
+.sc.g{color:#f97316;}
+.sc.p{color:#ef4444;}
+.r p{color:#4b5563;margin-top:4px;}
+
+/* START SCREEN */
+.start-screen{text-align:center;padding:10px 10px 0;}
+.start-screen h1{font-size:30px;color:#111827;margin-bottom:6px;}
+.start-screen p{font-size:15px;color:#4b5563;margin-bottom:16px;}
+.start-info{
+  background:#f9fafb;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:18px;
+  text-align:left;
+  border:1px solid #e5e7eb;
+}
+.start-info h3{
+  color:#111827;
+  margin-bottom:8px;
+  font-size:15px;
+}
+.start-info ul{
+  margin-left:18px;
+  color:#4b5563;
+  font-size:14px;
+}
+.start-info li{margin-bottom:4px;}
+
+/* REGISTRATION */
+.reg-screen{text-align:center;padding:10px 10px 0;}
+.reg-screen h1{font-size:30px;color:#111827;margin-bottom:6px;}
+.reg-screen p{font-size:15px;color:#4b5563;margin-bottom:12px;}
+
+.reg-form{
+  max-width:420px;
+  margin:0 auto;
+  text-align:left;
+  background:#f9fafb;
+  border-radius:18px;
+  padding:20px 18px 18px;
+  border:1px solid #e5e7eb;
+  box-shadow:0 12px 30px rgba(148,163,184,0.55);
+}
+.reg-field{margin-bottom:14px;}
+.reg-field label{
+  display:block;
+  font-size:14px;
+  font-weight:600;
+  color:#374151;
+  margin-bottom:4px;
+}
+.reg-field input{
+  width:100%;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid #d1d5db;
+  font-size:14px;
+  background:#fff;
+}
+.reg-field input:focus{
+  outline:none;
+  border-color:#6366f1;
+  box-shadow:0 0 0 1px rgba(99,102,241,0.3);
+}
+.reg-error{
+  color:#b91c1c;
+  font-size:13px;
+  margin-bottom:10px;
+  display:none;
+}
+
+/* ✅ AYAT IMAGE (your uploaded photo) */
+.ayat-img{
+  text-align:center;
+  margin-bottom:8px; /* reduced gap */
+}
+.ayat-img img{
+  width:220px;       /* desktop smaller */
+  max-width:100%;
+  height:auto;
+  display:inline-block;
+}
+@media (max-width:600px){
+  .ayat-img{ margin-bottom:6px; }
+  .ayat-img img{ width:150px; } /* mobile smaller */
+}
+
+/* ===== Colorful header (top block) ===== */
+.header-box{
+  position:relative;
+  padding:18px 16px 16px; /* ✅ tighter for mobile + desktop */
+  border-radius:22px;
+  margin-top:4px;
+  margin-bottom:18px;
+  overflow:hidden;
+
+  background:
+    radial-gradient(900px 300px at 10% 10%, rgba(255,255,255,.22), transparent 60%),
+    radial-gradient(900px 300px at 90% 0%, rgba(255,255,255,.18), transparent 55%),
+    linear-gradient(135deg, #6366f1, #ec4899);
+
+  box-shadow:0 18px 40px rgba(17,24,39,.25);
+  border:1px solid rgba(255,255,255,.22);
+}
+
+/* decoration layer */
+.header-box::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:
+    radial-gradient(300px 180px at 20% 30%, rgba(255,255,255,.22), transparent 60%),
+    radial-gradient(320px 220px at 85% 65%, rgba(255,255,255,.18), transparent 62%);
+  pointer-events:none;
+}
+
+/* header decoration never blocks clicks */
+.header-box{ isolation:isolate; }
+.header-box::after{ z-index:0; }
+.header-box > *{ position:relative; z-index:1; }
+
+.header-box h1{
+  color:#ffffff;
+  text-shadow:0 10px 26px rgba(0,0,0,.25);
+}
+.header-box .designer,
+.header-box .ci{
+  color:rgba(255,255,255,.90);
+}
+.header-box .langbar{margin-top:10px;gap:10px;}
+.header-box .langbar label{color:rgba(255,255,255,.95);}
+.header-box .langhint{color:rgba(255,255,255,.85);}
+.header-box .langbar select{
+  border:1px solid rgba(255,255,255,.35);
+  background:rgba(255,255,255,.92);
+  box-shadow:0 10px 22px rgba(0,0,0,.15);
+}
+.header-box .ci{
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:16px;
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.28);
+  backdrop-filter:blur(10px);
+}
+
+/* ✅ FOOTER ON MAIN BACKGROUND */
+#pageFooter{
+  position:fixed;
+  left:0; right:0; bottom:0;
+  z-index:9999;
+  text-align:center;
+  padding:10px 12px;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.3px;
+  color:rgba(255,255,255,.92);
+  background:linear-gradient(135deg, rgba(99,102,241,.55), rgba(236,72,153,.45));
+  backdrop-filter: blur(10px);
+  border-top:1px solid rgba(255,255,255,.25);
+}
+</style>
+
+</head>
+
+<body>
+  <div id="a"></div>
+  <div id="pageFooter">@IFA Learning Hub 2026</div>
+
+<script>
+var cq=0, ua={}, lq={}, sr=0, APP=document.getElementById('a');
+var stName="", stDob="";
+var fq = {}; // flagged questions
+
+/* TIMERS */
+var totalTime = 600;       // 1 hour in seconds
+var totalInterval = null;
+var questionTime = 30;     // per question (seconds)
+var qRemaining = questionTime;
+var qInterval = null;
+
+/* =========================
+   LANGUAGE SYSTEM
+   ========================= */
+var LANG_KEY = "quizLanguage";
+function getLang(){ return localStorage.getItem(LANG_KEY) || "ur"; }
+function setLang(v){ localStorage.setItem(LANG_KEY, v); }
+function split3(txt){
+  var parts = String(txt||"").split(" | ");
+  return {
+    ur: parts[0] || "",
+    en: parts[1] || parts[0] || "",
+    ru: parts[2] || parts[1] || parts[0] || ""
+  };
+}
+function t(txt){
+  var p = split3(txt);
+  var l = getLang();
+  return (l==="en"?p.en : l==="ru"?p.ru : p.ur);
+}
+function langBarHTML(){
+  var l = getLang();
+  return ''+
+  '<div class="langbar">'+
+    '<label>'+t("زبان | Language | Язык")+'</label>'+
+    '<select id="langSelect" onchange="handleLangChange(this.value)">'+
+      '<option value="ur" '+(l==="ur"?"selected":"")+'>اردو</option>'+
+      '<option value="en" '+(l==="en"?"selected":"")+'>English</option>'+
+      '<option value="ru" '+(l==="ru"?"selected":"")+'>Русский</option>'+
+    '</select>'+
+    '<span class="langhint">'+t("جب چاہیں تبدیل کریں | Switch anytime | Можно менять в любой момент")+'</span>'+
+  '</div>';
+}
+function handleLangChange(v){
+  setLang(v);
+  if(document.getElementById("regName") || document.getElementById("regDob")) showRegister();
+  else if(document.querySelector(".start-screen")) showStart();
+  else if(document.querySelector(".r")) rr();
+  else rq();
+}
+
+/* =========================
+   UI TRANSLATIONS
+   ========================= */
+var UI = {
+  ur: {
+    title: "سیدہ فاطمہ زہراءؑ لائف کوئز",
+    designer: "ڈیزائن: ام فروا سیدۂ · DG Skills",
+    candidate: "امتحانی امیدوار",
+    dob: "تاریخ پیدائش",
+
+    registerMsg: "کوئز شروع کرنے سے پہلے اپنی معلومات درج کریں۔",
+    fullName: "پورا نام",
+    dobLabel: "تاریخ پیدائش",
+    regError: "براہِ کرم نام اور تاریخِ پیدائش درج کریں۔",
+    registerBtn: "رجسٹر کریں اور جاری رکھیں",
+
+    quizInfo: "کوئز کی معلومات",
+    totalTestTime: "کل وقت: 1 گھنٹہ",
+    eachQuestionTime: "ہر سوال کا وقت",
+    questionsCount: "کل سوالات: 20",
+    randomOrder: "ہر بار سوالات رینڈم ہوں گے",
+    controls: "Previous, Skip اور Flag استعمال کریں",
+    emailInfo: "نتیجہ DG Skills کو ای میل کیا جا سکتا ہے",
+    startBtn: "کوئز شروع کریں",
+
+    question: "سوال",
+    of: "میں سے",
+    totalTime: "کل وقت",
+    questionTime: "سوال کا وقت",
+
+    submit: "جواب جمع کریں",
+    next: "اگلا سوال",
+    viewResults: "نتائج دیکھیں",
+    prev: "پچھلا سوال",
+    skip: "سوال چھوڑ دیں",
+    flag: "سوال نشان زد کریں",
+    unflag: "نشان ہٹائیں",
+    flagged: "نشان زد",
+    single: "سنگل انتخاب",
+    multiple: "متعدد انتخاب",
+
+    correct: "درست!",
+    incorrect: "غلط",
+
+    complete: "کوئز مکمل!",
+    scored: "آپ نے حاصل کیا",
+    outOf: "میں سے",
+    noteAttempt: "نوٹ: یہ آپ کی",
+    attemptWord: "ویں کوشش ہے۔",
+    emailBtn: "نتیجہ ای میل کریں",
+    restart: "ختم کریں اور دوبارہ شروع کریں"
+  },
+
+  en: {
+    title: "Hazrat Fatima Zahra (SA) Life Quiz",
+    designer: "Designed by Ume Farwa Syeda · DG Skills",
+    candidate: "Candidate",
+    dob: "DOB",
+
+    registerMsg: "Please register your details before starting the quiz.",
+    fullName: "Full Name",
+    dobLabel: "Date of Birth",
+    regError: "Please enter your name and date of birth.",
+    registerBtn: "Register & Continue",
+
+    quizInfo: "Quiz Information",
+    totalTestTime: "Total test time: 1 hour",
+    eachQuestionTime: "Each question time",
+    questionsCount: "Total questions: 20",
+    randomOrder: "Questions appear in random order each attempt",
+    controls: "Use Previous, Skip and Flag to manage your time",
+    emailInfo: "Final score can be emailed directly to DG Skills",
+    startBtn: "Start Quiz",
+
+    question: "Question",
+    of: "of",
+    totalTime: "Total time",
+    questionTime: "Question time",
+
+    submit: "Submit Answer",
+    next: "Next Question",
+    viewResults: "View Results",
+    prev: "Previous Question",
+    skip: "Skip Question",
+    flag: "Flag Question",
+    unflag: "Unflag Question",
+    flagged: "Flagged",
+    single: "Single Select",
+    multiple: "Multiple Select",
+
+    correct: "Correct!",
+    incorrect: "Incorrect",
+
+    complete: "Quiz Complete!",
+    scored: "You scored",
+    outOf: "out of",
+    noteAttempt: "Note: This is your",
+    attemptWord: "attempt for this quiz.",
+    emailBtn: "Email Result to DG Skills",
+    restart: "End & Restart"
+  },
+
+  ru: {
+    title: "Жизненный тест Фатимы Захры (мир ей)",
+    designer: "Дизайн: Ume Farwa Syeda · DG Skills",
+    candidate: "Кандидат",
+    dob: "Дата рождения",
+
+    registerMsg: "Пожалуйста, введите данные перед началом теста.",
+    fullName: "Полное имя",
+    dobLabel: "Дата рождения",
+    regError: "Пожалуйста, введите имя и дату рождения.",
+    registerBtn: "Зарегистрироваться и продолжить",
+
+    quizInfo: "Информация о тесте",
+    totalTestTime: "Общее время теста: 1 час",
+    eachQuestionTime: "Время на вопрос",
+    questionsCount: "Всего вопросов: 20",
+    randomOrder: "Вопросы показываются в случайном порядке",
+    controls: "Используйте Назад, Пропустить и Отметить",
+    emailInfo: "Результат можно отправить в DG Skills",
+    startBtn: "Начать тест",
+
+    question: "Вопрос",
+    of: "из",
+    totalTime: "Общее время",
+    questionTime: "Время вопроса",
+
+    submit: "Отправить ответ",
+    next: "Следующий вопрос",
+    viewResults: "Посмотреть результат",
+    prev: "Предыдущий вопрос",
+    skip: "Пропустить вопрос",
+    flag: "Отметить вопрос",
+    unflag: "Убрать отметку",
+    flagged: "Отмечено",
+    single: "Один вариант",
+    multiple: "Несколько вариантов",
+
+    correct: "Правильно!",
+    incorrect: "Неправильно",
+
+    complete: "Тест завершён!",
+    scored: "Ваш результат",
+    outOf: "из",
+    noteAttempt: "Примечание: это ваша",
+    attemptWord: "попытка.",
+    emailBtn: "Отправить результат в DG Skills",
+    restart: "Завершить и начать заново"
+  }
+};
+function ui(key){
+  var l=getLang();
+  return (UI[l] && UI[l][key]) ? UI[l][key] : key;
+}
+
+/* =========================
+   QUESTION BANK
+   ========================= */
+var qs = [
+  { i:1, q:"سیدہ فاطمہؑ کی تاریخِ پیدائش کیا ہے؟ | What is the birth date of Lady Fatima (SA)? | Какова дата рождения госпожи Фатимы (мир ей)?",
+    o:["7 صفر | 7 Safar | 7 сафар","20 جمادی الثانی | 20 Jumada al-Thani | 20 Джумада ас-Сани","15 شعبان | 15 Shaban | 15 Шаабан","27 رجب | 27 Rajab | 27 Раджаб"],
+    c:[1], m:0
+  },
+  { i:2, q:"سیدہ فاطمہؑ کے القاب کیا تھے؟ | What were the titles of Lady Fatima (SA)? | Каковы были титулы госпожи Фатимы (мир ей)?",
+    o:["زہرا | Zahra | Захра","صدیقہ | Siddiqah | Сиддика","طاہرہ | Tahira | Тахира","تمام | All of these | Все вышеперечисленные"],
+    c:[3], m:0
+  },
+  { i:3, q:"سیدہ فاطمہؑ کی والدہ کون تھیں؟ | Who was the mother of Lady Fatima (SA)? | Кто была матерью госпожи Фатимы (мир ей)?",
+    o:["ام سلمہؑ | Umm Salama | Умм Салама","خدیجہ الکبریٰؑ | Khadija al-Kubra | Хадиджа аль-Кубра","صفیہ | Safiyyah | Сафия","ماریہؑ | Maria | Мария"],
+    c:[1], m:0
+  },
+  { i:4, q:"شیعہ عقیدہ کے مطابق پیغمبر ﷺ کی حقیقی بیٹی کون تھیں؟ | According to Shia belief, who was the real daughter of the Prophet (PBUH)? | Согласно шиитскому вероучению, кто был настоящей дочерью Пророка (мир ему)?",
+    o:["رقیہ | Ruqayyah | Рукайя","زینب | Zaynab | Зайнаб","ام کلثوم | Umm Kulthum | Умм Кульсум","فقط فاطمہؑ | Only Fatima (SA) | Только Фатима (мир ей)"],
+    c:[3], m:0
+  },
+  { i:5, q:"سیدہ فاطمہؑ کا نکاح کس سے ہوا؟ | Who did Lady Fatima (SA) marry? | За кого вышла замуж госпожа Фатима (мир ей)?",
+    o:["امام حسنؑ | Imam Hasan | Имам Хасан","امام حسینؑ | Imam Husayn | Имам Хусейн","حضرت علیؑ | Imam Ali (AS) | Имам Али (мир ему)","جعفرؑ | Ja‘far | Джафар"],
+    c:[2], m:0
+  },
+  { i:6, q:"سیدہ فاطمہؑ کے کتنے بیٹے تھے؟ | How many sons did Lady Fatima (SA) have? | Сколько сыновей было у госпожи Фатимы (мир ей)?",
+    o:["دو | Two | Два","تین | Three | Три","چار | Four | Четыре","ایک | One | Один"],
+    c:[1], m:0
+  },
+  { i:7, q:"سیدہ فاطمہؑ کی کتنی بیٹیاں تھیں؟ | How many daughters did Lady Fatima (SA) have? | Сколько дочерей было у госпожи Фатимы (мир ей)?",
+    o:["1 | One | Одна","2 | Two | Две","3 | Three | Три","4 | Four | Четыре"],
+    c:[1], m:0
+  },
+  { i:8, q:"سیدہ فاطمہؑ کو اللہ نے کون سی خاص کتاب عطا کی تھی؟ | Which special book was granted to Lady Fatima (SA)? | Какую особую книгу Аллах даровал госпоже Фатиме (мир ей)?",
+    o:["قرآن | Quran | Коран","تورات | Torah | Тора","مصحفِ فاطمہؑ | Mushaf-e-Fatima | Мусхаф Фатимы","زبور | Zabur | Забур"],
+    c:[2], m:0
+  },
+  { i:9, q:"سیدہ فاطمہؑ کی شہادت کب ہوئی؟ | When did Lady Fatima (SA) attain martyrdom? | Когда госпожа Фатима (мир ей) приняла мученическую смерть?",
+    o:["10 محرم | 10 Muharram | 10 Мухаррам","28 صفر | 28 Safar | 28 Сафар","3 جمادی الثانی | 3 Jumada al-Thani | 3 Джумада ас-Сани","15 شعبان | 15 Shaban | 15 Шаабан"],
+    c:[2], m:0
+  },
+  { i:10, q:"سیدہ فاطمہؑ کے مزار کا مقام کیا ہے؟ | Where is the burial place of Lady Fatima (SA)? | Где находится место захоронения госпожи Фатимы (мир ей)?",
+    o:["جنت البقیع | Jannat al-Baqi | Джаннат аль-Баки","مسجد نبوی | Masjid an-Nabawi | Мечеть Пророка","نجف | Najaf | Наджаф","کربلا | Karbala | Кербела"],
+    c:[0], m:0
+  },
+  { i:11, q:"سیدہ فاطمہؑ کا مشہور خطبہ کون سا ہے؟ | Which is the famous sermon of Lady Fatima (SA)? | Какая известная проповедь принадлежит госпожи Фатиме (мир ей)?",
+    o:["خطبہ حج | Sermon of Hajj | Проповедь хаджа","خطبہ فدک | Sermon of Fadak | Проповедь Фадака","خطبہ غدیر | Sermon of Ghadir | Проповедь Гадира","خطبہ شعبانیہ | Sha‘baniyah Sermon | Проповедь Шаабании"],
+    c:[1], m:0
+  },
+  { i:12, q:"سیدہ فاطمہؑ کی کنیت کیا تھی؟ | What was the kunya of Lady Fatima (SA)? | Какой была кунья госпожي Фатимы (мир ей)?",
+    o:["ام القاسم | Umm al-Qasim | Умм аль-Касим","ام البنین | Umm al-Banin | Умм аль-Банин","ام ابیہا | Umm Abiha | Умм Абиһа","ام سلیم | Umm Sulaym | Умм Сулейм"],
+    c:[2], m:0
+  },
+  { i:13, q:"سیدہ فاطمہؑ کی عصمت کی دلیل کون سی آیت ہے؟ | Which verse proves the infallibility of Lady Fatima (SA)? | Какой аят доказывает непогрешимость госпожи Фатимы (мир ей)?",
+    o:["آیت الکرسی | Ayat al-Kursi | Аят аль-Курси","آیت بلاغ | Ayat al-Balagh | Аят доведения","آیت تطہیر | Ayat al-Tatheer | Аят очищения","آیت سخرہ | Ayat Sakharah | Аят подчинения"],
+    c:[2], m:0
+  },
+  { i:14, q:"حدیثِ کساء کے مطابق جبرائیلؑ نے سیدہ فاطمہؑ کے بارے میں کیا کہا؟ | According to Hadith al-Kisa, what did Jibraeel (AS) say about Lady Fatima (SA)? | Что сказал Джибраил (мир ему) о госпожи Фатиме (мир ей)?",
+    o:["آپ اہلِ بیت کی خادمہ ہیں | She is the servant of Ahlul Bayt | Она служительница Ахль аль-Байт","آپ اہلِ بیت کی محافظ ہیں | She is the protector of Ahlul Bayt | Она защитница Ахль аль-Байт","آپ اہلِ بیت میں سب سے بہتر ہیں | She is the best among Ahlul Bayt | Она лучшая среди Ахль аль-Байт","آپ اہلِ بیت میں شامل نہیں | Not included | Не входит"],
+    c:[2], m:0
+  },
+  { i:15, q:"حدیثِ کساء میں کون شامل تھے؟ | Who were included in Hadith al-Kisa? | Кто входил в хадис аль-Киса?",
+    o:["صرف فاطمہؑ | Only Fatima | Только Фатима","صرف علیؑ | Only Ali | Только Али","اہلِ کساء | Ahl al-Kisa | Ахль аль-Киса","صحابہ | Companions | Сподвижники"],
+    c:[2], m:0
+  },
+  { i:16, q:"سورہ انسان کس موقع پر نازل ہوئی؟ | On which occasion was Surah Al-Insan revealed? | По какому поводу была ниспослана сура Аль-Инсан?",
+    o:["ہجرت | Migration | Хиджра","بدر | Badr | Бадр","ایثار | Charity of Hasan & Husayn | Милосердие Хасана и Хусейна","مباہلہ | Mubahila | Мубахала"],
+    c:[2], m:0
+  },
+  { i:17, q:"سیدہ فاطمہؑ کو کون سا اعزاز دیا گیا؟ | Which title was given to Lady Fatima (SA)? | Какой титул был дарован госпожي Фатиме (мир ей)?",
+    o:["سیدہ النساء العالمین | Leader of women of the worlds | Госпожа женщин миров","ملکۃ العرب | Queen of Arabs | Королева арабов","ام المومنین | Mother of believers | Мать верующих","سیدہ الدنیا | Lady of the world | Госпожа мира"],
+    c:[0], m:0
+  },
+  { i:18, q:"سیدہ فاطمہؑ کی شہادت کس کے بعد ہوئی؟ | After whose demise did Lady Fatima (SA) attain martyrdom? | После чьей кончины приняла мученическую смерть госпожи Фатимы (мир ей)?",
+    o:["امام حسینؑ | Imam Husayn | Имам Хусейн","امام حسنؑ | Imam Hasan | Имам Хасан","رسول اللہ ﷺ | Prophet Muhammad | Пророк Мухаммад","حضرت علیؑ | Imam Ali | Имам Али"],
+    c:[2], m:0
+  },
+  { i:19, q:"زیارتِ ناحیہ میں امام زمانہؑ نے اپنی دادی کو کس طرح سلام کیا؟ | How did Imam Mahdi (AS) greet his grandmother in Ziyarat al-Nahiya? | Как Имам Махدي (мир ему) приветствовал свою бабушку в Зиярате ан-Нахия?",
+    o:["السلام علیک یا جدتی | O my grandmother | О моя бабушка","السلام علیک یا فاطمہ الزہراء | O Fatima Zahra | О Фатима Захра","السلام علیک یا بنت رسول اللہ | O daughter of the Prophet | О дочь Пророка","دونوں A اور C | Both A and C | A и C"],
+    c:[3], m:0
+  },
+  { i:20, q:"سیدہ فاطمہؑ کس امام کی والدہ ہیں؟ | Mother of which Imam is Lady Fatima (SA)? | Матерью какого Имама является госпожи Фатима (мир ей)?",
+    o:["چوتھے امام | Fourth Imam | Четвертого Имама","دوسرے امام | Second Imam | Второго Имама","پہلے امام | First Imam | Первого Имама","پانچویں امام | Fifth Imam | Пятого Имама"],
+    c:[1], m:0
+  }
+];
+
+/* SHUFFLE QUESTIONS */
+function shuffleQuestions(){
+  for (var i = qs.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = qs[i];
+    qs[i] = qs[j];
+    qs[j] = tmp;
+  }
+}
+
+/* AYAT + LOGO HTML */
+function ayatHTML(){
+  return '<div class="ayat-img"><img src="ayat.png" alt="Ayat"></div>';
+}
+function logoHTML(){
+  return '<div class="logo">'+
+           '<img src="dg skills logo.png" class="logo-img" alt="DG Skills Logo">'+
+         '</div>';
+}
+
+/* FORMAT TIME mm:ss */
+function formatTime(sec){
+  var m = Math.floor(sec/60);
+  var s = sec % 60;
+  return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+/* UPDATE TIMER LABELS */
+function updateTimerLabels(){
+  var t1 = document.getElementById('totalTimer');
+  var t2 = document.getElementById('questionTimer');
+  if(t1) t1.textContent = formatTime(totalTime);
+  if(t2) t2.textContent = formatTime(qRemaining);
+}
+
+/* STOP ALL TIMERS */
+function stopTimers(){
+  if(totalInterval) clearInterval(totalInterval);
+  if(qInterval) clearInterval(qInterval);
+  totalInterval = null;
+  qInterval = null;
+}
+
+/* START TOTAL TEST TIMER */
+function startTotalTimer(){
+  if(totalInterval) clearInterval(totalInterval);
+  totalInterval = setInterval(function(){
+    if(totalTime > 0){
+      totalTime--;
+      updateTimerLabels();
+      if(totalTime <= 0){
+        totalTime = 0;
+        updateTimerLabels();
+        stopTimers();
+        rr();
+      }
+    }
+  },1000);
+}
+
+/* START QUESTION TIMER */
+function startQuestionTimer(){
+  if(qInterval) clearInterval(qInterval);
+  qRemaining = questionTime;
+  updateTimerLabels();
+  qInterval = setInterval(function(){
+    if(qRemaining > 0){
+      qRemaining--;
+      updateTimerLabels();
+      if(qRemaining <= 0){
+        qRemaining = 0;
+        updateTimerLabels();
+        clearInterval(qInterval);
+        var qId = qs[cq].i;
+        if(!lq[qId]) lq[qId] = 1;
+        if(cq < qs.length - 1){
+          cq++;
+          startQuestionTimer();
+          rq();
+        }else{
+          rr();
+        }
+      }
+    }
+  },1000);
+}
+
+/* CHECK IF ANSWER IS CORRECT */
+function ic(qid){
+  var q=null;
+  for(var i=0;i<qs.length;i++){
+    if(qs[i].i===qid){q=qs[i];break;}
+  }
+  if(!q) return 0;
+  var a=ua[qid]||[];
+  if(a.length!==q.c.length) return 0;
+  for(var j=0;j<q.c.length;j++){
+    if(a.indexOf(q.c[j])===-1) return 0;
+  }
+  return 1;
+}
+
+/* RENDER QUESTION */
+function rq(){
+  var q=qs[cq];
+  var il=lq[q.i];
+  var a=ua[q.i]||[];
+  var pg=((cq+1)/qs.length)*100;
+  var isFlagged = !!fq[q.i];
+
+  var h='';
+  h += ayatHTML(); /* ✅ AYAT on top */
+  h+='<div class="h header-box">'+
+       logoHTML()+
+       '<h1>'+ui("title")+'</h1>'+
+       '<div class="designer">'+ui("designer")+'</div>'+
+       langBarHTML()+
+       (stName?'<div class="ci">'+ui("candidate")+': <strong>'+stName+
+               '</strong> | '+ui("dob")+': <strong>'+stDob+'</strong></div>':'')+
+     '</div>';
+
+  h+='<div class="pi">'+
+       '<div class="pi-left">'+
+         '<span>'+ui("question")+' '+(cq+1)+' '+ui("of")+' '+qs.length+'</span>'+
+         '<span style="font-size:12px;color:#6b7280;">'+ui("totalTime")+': <span id="totalTimer"></span> · '+ui("questionTime")+': <span id="questionTimer"></span></span>'+
+       '</div>'+
+       '<div class="pi-right">'+
+         '<span class="qt">'+(q.m?ui("multiple"):ui("single"))+'</span>'+
+         (isFlagged?'<span class="qt flagged">'+ui("flagged")+'</span>':'')+
+       '</div>'+
+     '</div>';
+
+  h+='<div class="pb"><div class="pf" style="width:'+pg+'%"></div></div>';
+
+  h+='<div class="q">'+t(q.q)+'</div><div class="os">';
+
+  for(var j=0;j<q.o.length;j++){
+    var sl=a.indexOf(j)!==-1;
+    var cr=q.c.indexOf(j)!==-1;
+    var cl='o';
+    if(il){
+      cl+=' l';
+      if(cr) cl+=' co';
+      else if(sl) cl+=' w';
+    }else if(sl){
+      cl+=' s';
+    }
+    var letter = String.fromCharCode(65 + j); // A, B, C, D
+    h+='<div class="'+cl+'" '+(il?'':'onclick="so('+j+')"')+'>'+
+         '<span><strong>'+letter+'. </strong>'+t(q.o[j])+'</span>'+
+         (il && cr ? '<span>&#10003;</span>' :
+          il && sl ? '<span>&#10007;</span>' : '')+
+       '</div>';
+  }
+  h+='</div>';
+
+  if(il){
+    h+='<div class="fb '+(ic(q.i)?'co':'ic')+'">'+
+       (ic(q.i)?'&#10003; '+ui("correct"):'&#10007; '+ui("incorrect"))+
+       '</div>'+
+       '<button class="nb" onclick="nq()">'+
+         (cq===qs.length-1?ui("viewResults"):ui("next"))+
+       '</button>';
+  }else{
+    h+='<button class="sb" onclick="sa()"'+(a.length===0?' disabled':'')+'>'+ui("submit")+'</button>'+
+       '<button class="skb" onclick="skq()">'+ui("skip")+'</button>';
+  }
+
+  h+='<div class="btn-row">'+
+       '<button class="nb" onclick="prevQ()"'+(cq===0?' disabled':'')+'>'+ui("prev")+'</button>'+
+       '<button class="fgb" onclick="toggleFlag()">'+(isFlagged?ui("unflag"):ui("flag"))+'</button>'+
+     '</div>';
+
+  APP.innerHTML=h;
+  updateTimerLabels();
+}
+
+/* HANDLE OPTION SELECT */
+function so(ix){
+  var q=qs[cq];
+  if(lq[q.i]) return;
+  var a=ua[q.i]||[];
+  if(q.m){
+    var f=a.indexOf(ix);
+    if(f!==-1) a.splice(f,1);
+    else a.push(ix);
+  }else{
+    a=[ix];
+  }
+  ua[q.i]=a;
+  rq();
+}
+
+/* SUBMIT ANSWER */
+function sa(){
+  lq[qs[cq].i]=1;
+  rq();
+}
+
+/* SKIP QUESTION */
+function skq(){
+  if(cq<qs.length-1){
+    cq++;
+    startQuestionTimer();
+    rq();
+  }else{
+    rr();
+  }
+}
+
+/* NEXT QUESTION */
+function nq(){
+  if(cq<qs.length-1){
+    cq++;
+    startQuestionTimer();
+    rq();
+  }else{
+    rr();
+  }
+}
+
+/* PREVIOUS QUESTION */
+function prevQ(){
+  if(cq>0){
+    cq--;
+    startQuestionTimer();
+    rq();
+  }
+}
+
+/* TOGGLE FLAG */
+function toggleFlag(){
+  var qId = qs[cq].i;
+  if(fq[qId]) delete fq[qId];
+  else fq[qId] = true;
+  rq();
+}
+
+/* SHOW RESULTS */
+function rr(){
+  stopTimers();
+
+  var ct=0;
+  for(var j=0;j<qs.length;j++){
+    if(ic(qs[j].i)) ct++;
+  }
+  var pt=Math.round((ct/qs.length)*100);
+
+  var key = 'fatimaLifeQuiz_' + stName + '_' + stDob;
+  var previousAttempts = parseInt(localStorage.getItem(key) || '0', 10);
+  if (previousAttempts >= 3) previousAttempts = 0;
+  var currentAttempt = previousAttempts + 1;
+  localStorage.setItem(key, currentAttempt);
+
+  var subject=encodeURIComponent('Hazrat Fatima Zahra as Life Quiz Result - '+stName);
+  var body='Hazrat Fatima Zahra as Life Quiz Result%0D%0A%0D%0A'+
+           'Name: '+stName+'%0D%0A'+
+           'DOB: '+stDob+'%0D%0A'+
+           'Attempt: '+currentAttempt+'%0D%0A'+
+           'Score: '+pt+'%25 ('+ct+' out of '+qs.length+' correct)%0D%0A%0D%0A'+
+           'DG Skills Auto Summary.';
+  var mailLink='mailto:dgskills4u@gmail.com?subject='+subject+'&body='+body;
+
+  /* ✅ WhatsApp link to your number */
+  var waText =
+    'Hazrat Fatima Zahra (SA) Life Quiz Result%0A%0A' +
+    'Name: ' + encodeURIComponent(stName) + '%0A' +
+    'DOB: ' + encodeURIComponent(stDob) + '%0A' +
+    'Attempt: ' + currentAttempt + '%0A' +
+    'Score: ' + pt + '%25 (' + ct + '/' + qs.length + ')%0A%0A' +
+    'Shared via IFA Learning Hub';
+  var waLink = 'https://wa.me/447470831407?text=' + waText;
+
+  var h='';
+  h += ayatHTML(); /* ✅ AYAT on top */
+  h+='<div class="h header-box">'+
+       logoHTML()+
+       '<h1>'+ui("title")+'</h1>'+
+       '<div class="designer">'+ui("designer")+'</div>'+
+       langBarHTML()+
+       '<div class="ci">'+ui("candidate")+': <strong>'+stName+'</strong> | '+ui("dob")+': <strong>'+stDob+'</strong></div>'+
+     '</div>';
+
+  h+='<div class="r">'+
+       '<h2>'+ui("complete")+'</h2>'+
+       '<div class="sc '+(pt>=70?'e':pt>=50?'g':'p')+'">'+pt+'%</div>'+
+       '<p>'+ui("scored")+' '+ct+' '+ui("outOf")+' '+qs.length+' '+t("سوالات | questions | вопросов")+'.</p>';
+
+  if(currentAttempt > 1){
+    h+='<p style="margin-top:8px;color:#b91c1c;font-weight:700;">'+
+        ui("noteAttempt")+' '+currentAttempt+' '+ui("attemptWord")+
+       '</p>';
+  }
+
+  h+='<div style="margin-top:25px; display:flex; flex-direction:column; gap:10px;">'+
+         '<a href="'+mailLink+'"><button class="sb">'+ui("emailBtn")+'</button></a>'+
+         '<a href="'+waLink+'" target="_blank"><button class="wa-btn">Share Result on WhatsApp</button></a>'+
+         '<button class="skb" onclick="goToRegistration()">'+ui("restart")+'</button>'+
+       '</div>'+
+     '</div>';
+
+  APP.innerHTML=h;
+}
+
+/* GO BACK TO REGISTRATION */
+function goToRegistration(){
+  stopTimers();
+  cq = 0;
+  ua = {};
+  lq = {};
+  fq = {};
+  sr = 0;
+  stName = "";
+  stDob = "";
+  totalTime = 600;
+  showRegister();
+}
+
+/* REGISTRATION SCREEN */
+function showRegister(){
+  stopTimers();
+  var h='';
+  h += ayatHTML(); /* ✅ AYAT on top */
+  h+='<div class="reg-screen">'+
+       '<div class="h header-box">'+
+         logoHTML()+
+         '<h1>'+ui("title")+'</h1>'+
+         '<div class="designer">'+ui("designer")+'</div>'+
+         langBarHTML()+
+       '</div>'+
+       '<p>'+ui("registerMsg")+'</p>'+
+       '<div class="reg-form">'+
+         '<div class="reg-error" id="regError">'+ui("regError")+'</div>'+
+         '<div class="reg-field">'+
+           '<label for="regName">'+ui("fullName")+'</label>'+
+           '<input type="text" id="regName" placeholder="'+ui("fullName")+'">'+
+         '</div>'+
+         '<div class="reg-field">'+
+           '<label for="regDob">'+ui("dobLabel")+'</label>'+
+           '<input type="date" id="regDob">'+
+         '</div>'+
+         '<button class="sb" onclick="handleRegister()">'+ui("registerBtn")+'</button>'+
+       '</div>'+
+     '</div>';
+  APP.innerHTML=h;
+}
+
+/* HANDLE REGISTRATION */
+function handleRegister(){
+  var n=document.getElementById('regName').value.trim();
+  var d=document.getElementById('regDob').value.trim();
+  var err=document.getElementById('regError');
+  if(!n || !d){
+    err.style.display='block';
+    return;
+  }
+  stName=n;
+  stDob=d;
+  showStart();
+}
+
+/* START SCREEN */
+function showStart(){
+  stopTimers();
+  totalTime = 600;
+  var h='';
+  h += ayatHTML(); /* ✅ AYAT on top */
+  h+='<div class="start-screen">'+
+       '<div class="h header-box">'+
+         logoHTML()+
+         '<h1>'+ui("title")+'</h1>'+
+         '<div class="designer">'+ui("designer")+'</div>'+
+         langBarHTML()+
+         '<div class="ci">'+ui("candidate")+': <strong>'+stName+'</strong> | '+ui("dob")+': <strong>'+stDob+'</strong></div>'+
+       '</div>'+
+       '<div class="start-info">'+
+         '<h3>'+ui("quizInfo")+':</h3>'+
+         '<ul>'+
+           '<li>'+ui("totalTestTime")+'</li>'+
+           '<li>'+ui("eachQuestionTime")+': '+questionTime+' '+t("سیکنڈ | seconds | секунд")+'</li>'+
+           '<li>'+ui("questionsCount")+'</li>'+
+           '<li>'+ui("randomOrder")+'</li>'+
+           '<li>'+ui("controls")+'</li>'+
+           '<li>'+ui("emailInfo")+'</li>'+
+         '</ul>'+
+       '</div>'+
+       '<button class="sb" onclick="startQuiz()">'+ui("startBtn")+'</button>'+
+     '</div>';
+  APP.innerHTML=h;
+}
+
+/* START QUIZ */
+function startQuiz(){
+  shuffleQuestions();
+  cq=0;
+  ua = {};
+  lq = {};
+  fq = {};
+  sr = 0;
+  totalTime = 600;
+  startTotalTimer();
+  startQuestionTimer();
+  rq();
+}
+
+/* ON LOAD */
+showRegister();
+</script>
+
+</body>
+</html>
